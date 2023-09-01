@@ -1,0 +1,45 @@
+COCO 数据集是一个大型的物体检测、分割和字幕数据集，也是目前最广泛公开的目标检测数据库
+使用 YOLOv5 在 COCO 数据集上训练得到的初始训练权重，在COCO128 数据集上进行了实验
+、、训练后无法检测：1.opencv-python版本是不是过高 2.训练此次少
+datasets
+       ├─ images
+       │    ├─ test # 下面放测试集图片
+       │    ├─ train # 下面放训练集图片-图片数量至少50张起步，越多越好，没有上限
+       │    └─ val # 下面放验证集图片
+       └─ labels
+              ├─ test # 下面放测试集标签
+              ├─ train # 下面放训练集标签
+              ├─ val # 下面放验证集标签
+
+####推荐使用conda创建虚拟环境，能用conda安装的就先用conda，不行再使用pip安装。
+####下载完成后将其解压到不带中文字符文件夹下，否则会使OpenCV的cv2.imread()函数读取不了待检测图片或视频
+至此
+####路径中就不要有短横杠-以及空格等等特殊字符，中文更不能要有❗。否则在之后训练时会出现各种路径找不到的问题😭
+使用pip等下载指令时最好不要挂VPN，否则可能会下载失败
+
+(uc37) D:\ocr\yolov5\yolov5>python detect.py --weights runs/train/exp6/weights/best.pt --source data/test.jpg
+(uc37) D:\ocr\yolov5\yolov5>python detect.py --weights runs/train/exp6/weights/best.pt --source test.jpg
+
+//-------------------------------------------
+安装项目依赖  把vpn关闭
+python -m pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+
+有17个label 实际图片训练集中有3个
+AssertionError: Label class 17 exceeds nc=3 in data/uc.yaml. Possible class labels are 0-2
+//-------------------------------------------
+训练集要和标签集一一对应！！！！！！！！！！！！！！！
+需要修改：data的uc.yaml和models.yaml的文件
+需要提前下载官方的权重文件防止网络卡下载慢！！！！！weights文件中
+//-------------------------------------------
+开始训练  --epoch 5  训练次数为5
+训练目标检测模型需要修改两个yaml文件中的参数。一个是data目录下的相应的yaml文件，一个是model目录文件下的相应的yaml文件
+python train.py --cfg models/yolov5s_uc.yaml --data data/uc.yaml --weights yolov5s.pt --epoch 5 --batch-size 16
+
+测试检测效果
+python detect.py --weights runs/train/exp6/weights/best.pt --source test.jpg
+python detect.py --weights runs/train/exp8/weights/best.pt --source data/test.jpg
+python detect.py --weights runs/train/exp4/weights/best.pt --source data/1001.jpg
+
+python detect.py --source ./data/images/bus.jpg --weights yolov5s.pt --conf-thres 0.25
+
