@@ -13,10 +13,17 @@
 #val: images/train  # val images (relative to 'path') 128 images
 #test: images/test # test images (optional)
 
-path:  # dataset root dir
-train: /content/datasets/images/train  # train images (relative to 'path') 128 images
-val: /content/datasets/images/train  # val images (relative to 'path') 128 images
-test: /content/datasets/images/test # test images (optional)
+#把文件传到content文件夹中
+#path:  # dataset root dir
+#train: /content/datasets/images/train  # train images (relative to 'path') 128 images
+#val: /content/datasets/images/train  # val images (relative to 'path') 128 images
+#test: /content/datasets/images/test # test images (optional)
+
+
+path: /content/drive/MyDrive/uc_train/datasets # dataset root dir
+train: images/train  # train images (relative to 'path') 128 images
+val: images/train  # val images (relative to 'path') 128 images
+test: images/test # test images (optional)
 
 # Classes
 names:
